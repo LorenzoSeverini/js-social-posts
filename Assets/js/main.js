@@ -151,13 +151,13 @@ for (const likeButton of likeButtons) {
         if (likeCounter.classList.contains('like-button--liked')) {
             likeCounter.classList.remove('like-button--liked');
             likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
-            // cambiare il testo del bottone da "non mi piace" a "mi piace"
+            // change the text of the button from "like" to "unlike"
             change = document.querySelector('.like-button__label');
             change.textContent = "Mi piace";
         } else {
             likeCounter.classList.add('like-button--liked');
             likeCounter.textContent = parseInt(likeCounter.textContent) + 1;
-            // cambiare il testo del bottone da "mi piace" a "non mi piace"
+            // change the text of the button from "like" to "unlike"
             change = document.querySelector('.like-button__label');
             change.textContent = "Non mi piace";
         }
