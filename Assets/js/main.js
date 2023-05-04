@@ -77,10 +77,9 @@ function createPost(post) {
                         ${setPicProfile(post)}
                     </div>
                 </div>
-                    <div class="post-meta__data">
-                        <h3 class="post-meta__author">${post.author.name}</h3>
-                        <div class="post-meta__time>${formatDate}</div>
-                    </div>
+                <div class="post-meta__data">
+                    <h3 class="post-meta__author">${post.author.name}</h3>
+                    <div class="post-meta__time">${formatDate(post.created)}</div>
                 </div>
             </div>
             <div class="post__text">lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</div>
@@ -105,7 +104,21 @@ function createPost(post) {
     document.getElementById('container').innerHTML += postHTML;
 }
 
-// Function to format the date
+// Function to create the posts
+function createPosts(posts) {
+    // Loop the posts
+    for (const post of posts) {
+        // Create the post
+        createPost(post);
+    }
+}
+
+// Create the posts
+createPosts(posts);
+
+// ****************
+// DATE 
+// ****************
 function formatDate(date) {
     // Create a new date
     const newDate = new Date(date);
@@ -119,15 +132,9 @@ function formatDate(date) {
     return `${day}/${month}/${year}`;
 }
 
-// Function to create the posts
-function createPosts(posts) {
-    // Loop the posts
-    for (const post of posts) {
-        // Create the post
-        createPost(post);
-    }
-}
 
+// ****************
+// Function to set the profile pic
 function setPicProfile (post) {
     if (post.author.image) {
         return `<img class="profile-pic" src="${post.author.image}" alt="${post.author.name}">`;
@@ -138,8 +145,45 @@ function setPicProfile (post) {
 }
 
 
-// Create the posts
-createPosts(posts);
+// ****************
+// function to set the likes counter 
+function setLikesCounter(post) {
+    const likesCounter = document.getElementsByClassName(`js-likes-counter-${post.id}`) [0] ;
+    likesCounter.innerText = post.likes;
+}
+
+// Function to set the like button
+function setLikeButton(post) {
+    const likeButton = document.getElementsByClassName(`js-like-button-${post.id}`) [0] ;
+    likeButton.classList.toggle('js-likes', post.liked);
+}
+
+// Function to toggle the like
+function toggleLike(post) {
+    post.liked = !post.liked;
+    if (post.liked) {
+        post.likes++;
+    } else {
+        post.likes--;
+    }
+}
+
+// Function to handle the like button click
+function handleLikeClick(event) {
+    // Get the like button
+    const likeButton = event.currentTarget;
+    // Get the post id
+    const postId = likeButton.dataset.postid;
+    // Get the post
+    const post = posts.find(post => post.id == postId);
+    // Toggle the like
+    toggleLike(post);
+    // Update the like button
+    setLikeButton(post);
+    // Update the likes counter
+    setLikesCounter(post);
+}
+
 
 // ****************
 // *    DEBUG     *
