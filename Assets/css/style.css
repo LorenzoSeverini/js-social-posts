@@ -94,6 +94,22 @@ h1 {
     text-transform: uppercase;
 }
 
+/* circle with the initials */
+.profile-pic__initials {
+    font-weight: bold;
+    color: #023047;
+    font-size: 1.875rem;
+    text-transform: uppercase;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #b1ae22;
+    
+}
+
 .post__text {
     margin-bottom: 16px;
 }
