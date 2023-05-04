@@ -70,7 +70,7 @@ const posts = [
 function createPost(post) {
     // Create the post
     const postHTML = `
-        <div class="post" data-id="${post.id}">
+        <div class="post">
             <div class="post__header">
                 <div class="post-meta">
                     <div class="post-meta__icon">
@@ -89,7 +89,7 @@ function createPost(post) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a class="like-button js-like-button" href="#" data-id="${post.id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
@@ -132,7 +132,6 @@ function formatDate(date) {
     return `${day}/${month}/${year}`;
 }
 
-
 // ****************
 // Function to set the profile pic
 function setPicProfile (post) {
@@ -144,52 +143,33 @@ function setPicProfile (post) {
     }
 }
 
-
-// ****************
-// function to set the likes counter 
-function setLikesCounter(post) {
-    const likesCounter = document.getElementsByClassName(`js-likes-counter-${post.id}`) [0] ;
-    likesCounter.innerText = post.likes;
+const likeButtons = document.querySelectorAll('.js-like-button');
+for (const likeButton of likeButtons) {
+    likeButton.addEventListener('click', function(event) {  
+        event.preventDefault();
+        const likeCounter = document.querySelector(`#like-counter-${this.dataset.id}`);
+        if (likeCounter.classList.contains('like-button--liked')) {
+            likeCounter.classList.remove('like-button--liked');
+            likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
+            // cambiare il testo del bottone da "non mi piace" a "mi piace"
+            change = document.querySelector('.like-button__label');
+            change.textContent = "Mi piace";
+        } else {
+            likeCounter.classList.add('like-button--liked');
+            likeCounter.textContent = parseInt(likeCounter.textContent) + 1;
+            // cambiare il testo del bottone da "mi piace" a "non mi piace"
+            change = document.querySelector('.like-button__label');
+            change.textContent = "Non mi piace";
+        }
+    });
 }
-
-// Function to set the like button
-function setLikeButton(post) {
-    const likeButton = document.getElementsByClassName(`js-like-button-${post.id}`) [0] ;
-    likeButton.classList.toggle('js-likes', post.liked);
-}
-
-// Function to toggle the like
-function toggleLike(post) {
-    post.liked = !post.liked;
-    if (post.liked) {
-        post.likes++;
-    } else {
-        post.likes--;
-    }
-}
-
-// Function to handle the like button click
-function handleLikeClick(event) {
-    // Get the like button
-    const likeButton = event.currentTarget;
-    // Get the post id
-    const postId = likeButton.dataset.postid;
-    // Get the post
-    const post = posts.find(post => post.id == postId);
-    // Toggle the like
-    toggleLike(post);
-    // Update the like button
-    setLikeButton(post);
-    // Update the likes counter
-    setLikesCounter(post);
-}
-
 
 // ****************
 // *    DEBUG     *
 // ****************
 
 console.log(posts);
+
 
 
 
