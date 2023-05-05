@@ -10,43 +10,55 @@
     padding: 0;
 }
 
+:root
+{
+    --color-primary: #354147;
+    --color-secondary: #0CD977;
+    --color-tertiary: #FFB703;
+    --color-quaternary: #FB8500;
+    --color-quinary: #03045E;
+    --color-white: #FFFFFF;
+    --color-black: #050505;
+}
+
 /**********************************************************/
 /* BASE */
 /**********************************************************/
 body {
-    font-family: system-ui, sans-serif;
-    background-color: #023047;
-    color: #050505;
-    font-size: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-primary);
+    color: var(--color-black);
 }
 
 h1 {
     font-size: calc(1.5rem + 2vw);
-    color: white;
+    color: var(--color-secondary);
 }
 
 .main-title {
     text-align: center;
-    margin: 24px 0;
+    margin: 1.5rem 0;
 }
 
 .posts-list {
     width: 90%;
-    max-width: 600px;
+    max-width: 37.5rem;
     margin: 0 auto;
 }
 
 .posts-list > * {
-    margin-bottom: 24px;
+    margin-bottom: 1.5rem;
 }
 
 .post { 
-    padding: 16px;
-    background-color: white;
+    padding: 1rem;
+    background-color: var(--color-white);
+    border-radius: .5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
 }
 
 .post__header {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
     display: flex;
 }
 
@@ -55,7 +67,7 @@ h1 {
 }
 
 .post-meta__icon {
-    margin-right: 24px;
+    margin-right: 1.5rem;
 }
 
 .post-meta__data {
@@ -74,37 +86,40 @@ h1 {
 
 .profile-pic {
     border-radius: 50%;
-    max-width: 60px;
+    max-width: 3.75rem;
 }
 
 .profile-pic-default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #0CD977;
-    height: 60px;
-    width: 60px;
+    background-color: var(--color-quaternary);
+    height: 3.75rem;
+    width: 3.75rem;
     overflow: hidden;
     border-radius: 50%;
 }
 
 .profile-pic-default span {
     font-weight: bold;
-    color: #023047;
+    color: var(--color-black);
     font-size: 1.2rem;
     text-transform: uppercase;
 }
 
 .post__text {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 
 .post__image {
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
 }
 
 .post__image img {
     width: 100%;
+    height: auto;
+    display: block;
+    border-radius: .5rem;
 }
 
 .likes {
@@ -115,14 +130,14 @@ h1 {
 
 .like-button {
     display: inline-block;
-    padding: 16px;
-    border-radius: 8px;    
+    padding: 1rem;
+    border-radius: .5rem;    
     text-decoration: none;
-    color: #404040;
+    color: var(--color-quinary);
 }
 
 .like-button:not(.like-button--liked):hover {
-    background-color: #e3e3e3
+    background-color: var(--color-secondary);
 }
 
 .like-button__label {
@@ -130,6 +145,6 @@ h1 {
 }
 
 .like-button--liked {
-    color: #0CD977;
+    color: var(--color-secondary);
     cursor: default;
 }
