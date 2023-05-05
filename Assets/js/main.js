@@ -66,24 +66,26 @@ const posts = [
 // *  FUNCTIONS   *
 // ****************
 
-// Function to create a post
-function createPost(post) {
+// Function to create the profile pic
+function profilePicPost(author) {
+    let profilePic = '';
 
-    // ****************
-    // Function to set the profile picture
-    // ****************
-    let profilePic = ''
-
-    if (post.author.image !== null) {
-        profilePic = `<img class="profile-pic" src="${post.author.image}" alt="${post.author.name}">`;
+    if (author.image !== null) {
+        profilePic = `<img class="profile-pic" src="${author.image}" alt="${author.name}">`;
     } else {
-        const initials = post.author.name.split(' ').map(word => word[0]).join('');
+        const initials = author.name.split(' ').map(word => word[0]).join('');
         profilePic = `
             <div class="profile-pic-default">
                 <span>${initials}</span>
             </div>
         `;
     }
+
+    return profilePic;
+}
+
+// Function to create a post
+function createPost(post) {
 
     const { author, created, content, media, likes, id } = post;
 
@@ -92,7 +94,7 @@ function createPost(post) {
             <div class="post__header">
                 <div class="post-meta">
                     <div class="post-meta__icon">
-                        ${profilePic}
+                        ${profilePicPost(author)}
                     </div>
                 </div>
                 <div class="post-meta__data">
