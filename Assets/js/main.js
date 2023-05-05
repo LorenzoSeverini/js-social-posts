@@ -68,34 +68,52 @@ const posts = [
 
 // Function to create a post
 function createPost(post) {
-    // Create the post
+
+    // ****************
+    // Function to set the profile picture
+    // ****************
+    let profilePic = ''
+
+    if (post.author.image !== null) {
+        profilePic = `<img class="profile-pic" src="${post.author.image}" alt="${post.author.name}">`;
+    } else {
+        const initials = post.author.name.split(' ').map(word => word[0]).join('');
+        profilePic = `
+            <div class="profile-pic-default">
+                <span>${initials}</span>
+            </div>
+        `;
+    }
+
+    const { author, created, content, media, likes, id } = post;
+
     const postHTML = `
         <div class="post">
             <div class="post__header">
                 <div class="post-meta">
                     <div class="post-meta__icon">
-                        ${setPicProfile(post)}
+                        ${profilePic}
                     </div>
                 </div>
                 <div class="post-meta__data">
-                    <h3 class="post-meta__author">${post.author.name}</h3>
-                    <div class="post-meta__time">${formatDate(post.created)}</div>
+                    <h3 class="post-meta__author">${author.name}</h3>
+                    <div class="post-meta__time">${formatDate(created)}</div>
                 </div>
             </div>
-            <div class="post__text">lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.</div>
+            <div class="post__text">${content}</div>
             <div class="post__image">
-                <img src="${post.media}" alt="">
+                <img src="${media}" alt="">
             </div>
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button js-like-button" href="#" data-id="${post.id}">
+                        <a class="like-button js-like-button" href="#" data-id="${id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+                        Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
                     </div>
                 </div>
             </div>
@@ -112,7 +130,6 @@ function createPosts(posts) {
         createPost(post);
     }
 }
-
 // Create the posts
 createPosts(posts);
 
@@ -133,16 +150,8 @@ function formatDate(date) {
 }
 
 // ****************
-// Function to set the profile pic
-function setPicProfile (post) {
-    if (post.author.image) {
-        return `<img class="profile-pic" src="${post.author.image}" alt="${post.author.name}">`;
-    } else {
-        const initials = post.author.name.split(' ').map(word => word[0]).join('');
-        return `<div class="profile-pic__initials">${initials}</div>`;
-    }
-}
-
+// LIKE BUTTON 
+// ****************
 const likeButtons = document.querySelectorAll('.js-like-button');
 for (const likeButton of likeButtons) {
     likeButton.addEventListener('click', function(event) {  
@@ -167,10 +176,7 @@ for (const likeButton of likeButtons) {
 // ****************
 // *    DEBUG     *
 // ****************
-
 console.log(posts);
-
-
 
 
 
