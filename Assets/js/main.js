@@ -154,27 +154,34 @@ function formatDate(date) {
 // ****************
 // LIKE BUTTON 
 // ****************
-const likeButtons = document.querySelectorAll('.js-like-button');
-for (const likeButton of likeButtons) {
-    likeButton.addEventListener('click', function(event) {  
+const likeButtons = document.getElementsByClassName('like-button');
+
+for (let i = 0; i < likeButtons.length; i++) {
+    const likeButton = likeButtons[i];
+
+    likeButton.addEventListener('click', function(event) {
+
         event.preventDefault();
-        const likeCounter = document.querySelector(`#like-counter-${this.dataset.id}`);
-        if (likeCounter.classList.contains('like-button--liked')) {
-            likeCounter.classList.remove('like-button--liked');
+
+        const clickedButton = 'like-button--liked';
+        const likeCounter = document.getElementsByClassName('js-likes-counter')[i];
+
+        if (likeCounter.classList.contains(clickedButton)) {
+            likeCounter.classList.remove(clickedButton);
             likeCounter.textContent = parseInt(likeCounter.textContent) - 1;
             // change the text of the button from "like" to "unlike"
-            change = document.querySelector('.like-button__label');
+            change = document.getElementsByClassName('like-button__label')[i];
             change.textContent = "Mi piace";
-        } else {
-            likeCounter.classList.add('like-button--liked');
+        }
+        else {
+            likeCounter.classList.add(clickedButton);
             likeCounter.textContent = parseInt(likeCounter.textContent) + 1;
             // change the text of the button from "like" to "unlike"
-            change = document.querySelector('.like-button__label');
+            change = document.getElementsByClassName('like-button__label')[i];
             change.textContent = "Non mi piace";
         }
     });
 }
-
 // ****************
 // *    DEBUG     *
 // ****************
